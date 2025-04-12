@@ -895,12 +895,6 @@ function M.jump_to_code(stay_in_panel)
   if bufnr > -1 then
     -- buffer already exists, show it
     vim.api.nvim_command(string.format("buffer %s", bufname))
-    if opts.line then
-      util.jump_to_line(opts)
-    end
-    if opts.startLine and opts.endLine and opts.startColumn and opts.endColumn then
-      util.highlight_range(bufnr, opts)
-    end
   else
     if source == "sarif" then
       bufnr = vim.api.nvim_create_buf(false, true)
@@ -917,6 +911,12 @@ function M.jump_to_code(stay_in_panel)
     elseif source == "file_system" then
       bufnr = vim.fn.bufnr(bufname, true)
     end
+  end
+  if opts.line then
+    util.jump_to_line(opts)
+  end
+  if opts.startLine and opts.endLine and opts.startColumn and opts.endColumn then
+    util.highlight_range(bufnr, opts)
   end
   if bufnr > -1 then
     vim.api.nvim_win_set_buf(target_winid, bufnr)
