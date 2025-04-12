@@ -912,16 +912,16 @@ function M.jump_to_code(stay_in_panel)
       bufnr = vim.fn.bufnr(bufname, true)
     end
   end
+  if bufnr > -1 then
+    vim.api.nvim_win_set_buf(target_winid, bufnr)
+  else
+    util.err_message("Cannot find source code for " .. filename .. " in " .. source)
+  end
   if opts.line then
     util.jump_to_line(opts)
   end
   if opts.startLine and opts.endLine and opts.startColumn and opts.endColumn then
     util.highlight_range(bufnr, opts)
-  end
-  if bufnr > -1 then
-    vim.api.nvim_win_set_buf(target_winid, bufnr)
-  else
-    util.err_message("Cannot find source code for " .. filename .. " in " .. source)
   end
 end
 
