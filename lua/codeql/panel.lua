@@ -1098,9 +1098,16 @@ function M.render(opts)
     end
   end
 
+  local sorted_query_ids = {}
+  for query_id in pairs(query_groups) do
+    table.insert(sorted_query_ids, query_id)
+  end
+  table.sort(sorted_query_ids)
+
   local queries = {}
-  local folded = #vim.tbl_keys(query_groups) > 1 and true or false
-  for query_id, query_issues in pairs(query_groups) do
+  local folded = #vim.tbl_keys(sorted_query_ids) > 1 and true or false
+  for _, query_id in pairs(sorted_query_ids) do
+    local query_issues = query_groups[query_id]
     local query = {
       mode = opts.mode or "table",
       columns = opts.columns and opts[query_id] or {},
