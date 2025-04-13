@@ -1063,6 +1063,9 @@ function M.open_panel(panel_name)
   vim.api.nvim_win_set_option(winnr, "concealcursor", "nvi")
   vim.api.nvim_win_set_option(winnr, "conceallevel", 3)
   vim.api.nvim_win_set_option(winnr, "signcolumn", "yes")
+
+  vim.fn.win_gotoid(winnr)
+
   return bufnr, winnr
 end
 
