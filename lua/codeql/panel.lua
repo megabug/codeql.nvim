@@ -917,6 +917,7 @@ function M.jump_to_code(stay_in_panel)
   else
     util.err_message("Cannot find source code for " .. filename .. " in " .. source)
   end
+  vim.cmd 'execute "normal \\<C-G>"'
   if opts.line then
     util.jump_to_line(opts)
   end
