@@ -1103,7 +1103,8 @@ function M.render(opts)
   end
 
   local sorted_query_ids = {}
-  for query_id in pairs(query_groups) do
+  for query_id, query_issues in pairs(query_groups) do
+    table.sort(query_issues, function(a, b) return a.label < b.label end)
     table.insert(sorted_query_ids, query_id)
   end
   table.sort(sorted_query_ids)
